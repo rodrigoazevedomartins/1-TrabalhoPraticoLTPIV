@@ -7,6 +7,7 @@ package br.edu.ifnmg.tads.trabalhopratico.DomainModel;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -84,17 +85,54 @@ public class Curso implements Serializable {
         this.disciplinas = disciplinas;
     }
     
-    public void addDisciplinas(Disciplina disciplina){
+    public void addDisciplina(Disciplina disciplina){
         if(!disciplinas.contains(disciplina)){
             disciplinas.add(disciplina);
         }
     }
     
-    public void removeDisciplinas(Disciplina disciplina){
+    public void removeDisciplina(Disciplina disciplina){
         if(disciplinas.contains(disciplina)){
             disciplinas.remove(disciplina);
         }
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 97 * hash + Objects.hashCode(this.nome);
+        hash = 97 * hash + this.duracao;
+        hash = 97 * hash + Objects.hashCode(this.disciplinas);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Curso other = (Curso) obj;
+        if (!Objects.equals(this.nome, other.nome)) {
+            return false;
+        }
+        if (this.duracao != other.duracao) {
+            return false;
+        }
+        if (!Objects.equals(this.disciplinas, other.disciplinas)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return this.nome;
+    }
+    
+    
     
     
     

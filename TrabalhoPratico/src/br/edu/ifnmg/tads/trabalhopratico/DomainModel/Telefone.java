@@ -41,16 +41,18 @@ public class Telefone implements Serializable {
     @JoinColumn(name="pessoaid")
     private Pessoa pessoa;
 
-    public Telefone(int areaddd, int numero, int ativo) {
+    public Telefone(int areaddd, int numero, int ativo, Pessoa pessoa) {
         this.areaddd = areaddd;
         this.numero = numero;
         this.ativo = ativo;
+        this.pessoa = pessoa;
     }
     
     public Telefone() {
         this.areaddd = 0;
         this.numero = 0;
         this.ativo = 1;
+        this.pessoa = new Pessoa();
     }
 
     public Long getTelefoneid() {
@@ -92,9 +94,6 @@ public class Telefone implements Serializable {
     public void setPessoa(Pessoa pessoa) {
         this.pessoa = pessoa;
     }
-    
-    
-    
     
     @Override
     public int hashCode() {

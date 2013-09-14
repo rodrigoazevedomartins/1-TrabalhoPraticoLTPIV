@@ -5,24 +5,18 @@
 package br.edu.ifnmg.tads.trabalhopratico.DomainModel;
 
 import java.io.Serializable;
+
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
-import org.hibernate.annotations.IndexColumn;
-import org.hibernate.mapping.PrimaryKey;
 
 /**
  *
@@ -30,7 +24,6 @@ import org.hibernate.mapping.PrimaryKey;
  */
 @Entity
 @Table(name="professores")
-@PrimaryKeyJoinColumn(name="professorid")
 public class Professor extends Pessoa implements Serializable {
       
     @Column(name="titulacao", length=255)
@@ -44,8 +37,20 @@ public class Professor extends Pessoa implements Serializable {
     joinColumns= @JoinColumn(name="professorid"), 
     inverseJoinColumns=@JoinColumn(name="disciplinaid")
     )
-    List<Disciplina> disciplinas;  
+    List<Disciplina> disciplinas;
+
+    public Professor(String titulacao, int nivel, List<Disciplina> disciplinas) {
+        this.titulacao = titulacao;
+        this.nivel = nivel;
+        this.disciplinas = disciplinas;
+    }
     
+    public Professor() {
+        this.titulacao = "";
+        this.nivel = 0;
+        this.disciplinas = new LinkedList<>();
+    }
+        
     public String getTitulacao() {
         return titulacao;
     }
@@ -71,17 +76,53 @@ public class Professor extends Pessoa implements Serializable {
     }
     
     
-    public void addDisciplinas(Disciplina disciplina){
+    public void addDisciplina(Disciplina disciplina){
         if(!disciplinas.contains(disciplina)){
             disciplinas.add(disciplina);
         }
     }
     
-    public void removeDisciplinas(Disciplina disciplina){
+    public void removeDisciplina(Disciplina disciplina){
         if(disciplinas.contains(disciplina)){
             disciplinas.remove(disciplina);
         }
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 73 * hash + Objects.hashCode(this.titulacao);
+        hash = 73 * hash + this.nivel;
+        hash = 73 * hash + Objects.hashCode(this.disciplinas);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Professor other = (Professor) obj;
+        if (!Objects.equals(this.titulacao, other.titulacao)) {
+            return false;
+        }
+        if (this.nivel != other.nivel) {
+            return false;
+        }
+        if (!Objects.equals(this.disciplinas, other.disciplinas)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return this.getNome();
+    }
+    
     
     
     

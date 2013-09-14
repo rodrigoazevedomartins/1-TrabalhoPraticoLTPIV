@@ -5,9 +5,9 @@
 package br.edu.ifnmg.tads.trabalhopratico.DomainModel;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 /**
@@ -16,15 +16,24 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="funcionarios")
-@PrimaryKeyJoinColumn(name = "funcionarioid")
 public class Funcionario extends Pessoa implements Serializable {
      
-    @Column(name="cargo")
+    @Column(name="cargo", length=255)
     private String cargo;
     
-    @Column(name="siape")
+    @Column(name="siape", length=255)
     private String siape;
 
+    public Funcionario(String cargo, String siape) {
+        this.cargo = cargo;
+        this.siape = siape;
+    }
+    
+    public Funcionario() {
+        this.cargo = "";
+        this.siape = "";
+    }
+    
     public String getSiape() {
         return siape;
     }
@@ -40,7 +49,36 @@ public class Funcionario extends Pessoa implements Serializable {
     public void setCargo(String cargo) {
         this.cargo = cargo;
     }
-    
-    
-    
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 89 * hash + Objects.hashCode(this.cargo);
+        hash = 89 * hash + Objects.hashCode(this.siape);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Funcionario other = (Funcionario) obj;
+        if (!Objects.equals(this.cargo, other.cargo)) {
+            return false;
+        }
+        if (!Objects.equals(this.siape, other.siape)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return this.getNome();
+    }
+
 }

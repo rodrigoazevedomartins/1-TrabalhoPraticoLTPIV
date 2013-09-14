@@ -60,7 +60,8 @@ public class Endereco implements Serializable {
     @JoinColumn(name="pessoaid")
     private Pessoa pessoa;
 
-    public Endereco(String rua, int numero, String complemento, String bairro, String cidade, String estado, String cep, String pais, int ativo) {
+    public Endereco(String rua, int numero, String complemento, String bairro, String cidade, String estado, 
+            String cep, String pais, int ativo, Pessoa pessoa) {
         this.rua = rua;
         this.numero = numero;
         this.complemento = complemento;
@@ -70,6 +71,7 @@ public class Endereco implements Serializable {
         this.cep = cep;
         this.pais = pais;
         this.ativo = ativo;
+        this.pessoa = pessoa;
     }
     
     public Endereco() {
@@ -82,6 +84,7 @@ public class Endereco implements Serializable {
         this.cep = "";
         this.pais = "";
         this.ativo = 1;
+        this.pessoa = new Pessoa();
     }
     
     public Long getEnderecoid() {

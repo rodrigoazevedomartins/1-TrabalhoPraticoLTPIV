@@ -5,7 +5,9 @@
 package br.edu.ifnmg.tads.trabalhopratico.DomainModel;
 
 import java.io.Serializable;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,7 +18,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -32,7 +33,7 @@ public class Disciplina implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long disciplinaid;
     
-    @ManyToMany(cascade= CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @ManyToMany(cascade= CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name="ProfessorDisciplina",
     joinColumns= @JoinColumn(name="disciplinaid"), 
     inverseJoinColumns=@JoinColumn(name="professorid"))
@@ -48,6 +49,22 @@ public class Disciplina implements Serializable {
     @JoinColumn(name="cursoid")
     private Curso curso;
 
+    public Disciplina(String nome, String ementa, Curso curso, List<Professor> professores) {
+        this.nome = nome;
+        this.ementa = ementa;
+        this.curso = curso;
+        this.professores = professores;
+    }
+    
+    public Disciplina() {
+        this.nome = "";
+        this.ementa = "";
+        this.curso = new Curso();
+        this.professores = new LinkedList<>();
+    }
+    
+    
+    
     public Long getDisciplinaid() {
         return disciplinaid;
     }
@@ -99,5 +116,42 @@ public class Disciplina implements Serializable {
             professores.add(professor);
         }
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 59 * hash + Objects.hashCode(this.professores);
+        hash = 59 * hash + Objects.hashCode(this.nome);
+        hash = 59 * hash + Objects.hashCode(this.ementa);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Disciplina other = (Disciplina) obj;
+        if (!Objects.equals(this.professores, other.professores)) {
+            return false;
+        }
+        if (!Objects.equals(this.nome, other.nome)) {
+            return false;
+        }
+        if (!Objects.equals(this.ementa, other.ementa)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return this.nome;
+    }
+    
+    
     
 }

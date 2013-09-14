@@ -54,24 +54,20 @@ public class Pessoa implements Serializable {
     
     @OneToMany(cascade= CascadeType.ALL, fetch= FetchType.LAZY)
     @JoinColumn(name="pessoaid")
-    //@IndexColumn(name="enderecoid") 
     List<Endereco> enderecos;
     
     @OneToMany(cascade= CascadeType.ALL, fetch= FetchType.LAZY)
-    @JoinColumn(name="pessoaid")
-    //@IndexColumn(name="emailid") 
+    @JoinColumn(name="pessoaid") 
     List<Email> emails;
-    
-    
+       
     @OneToMany(cascade= CascadeType.ALL, fetch= FetchType.LAZY)
     @JoinColumn(name="pessoaid")
-    //@IndexColumn(name="telefoneid") 
     List<Telefone> telefones; 
     
-    public Pessoa(String nome, String rg, int cpf, Date datanasc, int ativo) {
-        this.emails = new LinkedList<>();
-        this.telefones = new LinkedList<>();
-        this.enderecos = new LinkedList<>();
+    public Pessoa(String nome, String rg, int cpf, Date datanasc, int ativo, List<Email> emails, List<Endereco> enderecos, List<Telefone> telefones) {
+        this.emails = emails;
+        this.telefones = telefones;
+        this.enderecos = enderecos;
         this.nome = nome;
         this.rg = rg;
         this.cpf = cpf;
@@ -80,14 +76,14 @@ public class Pessoa implements Serializable {
     }
     
     public Pessoa() {
-        this.emails = new LinkedList<>();
-        this.telefones = new LinkedList<>();
-        this.enderecos = new LinkedList<>();
         this.nome = "";
         this.rg = "";
         this.cpf = 0;
         this.datanasc = new Date();
         this.ativo = 1;
+        this.emails = new LinkedList<>();
+        this.telefones = new LinkedList<>();
+        this.enderecos = new LinkedList<>();
     }
     
     public Long getPessoaid() {

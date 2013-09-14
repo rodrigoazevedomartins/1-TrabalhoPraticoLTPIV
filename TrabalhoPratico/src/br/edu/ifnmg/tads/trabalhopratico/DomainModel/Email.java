@@ -39,14 +39,16 @@ public class Email implements Serializable {
     @JoinColumn(name="pessoaid")
     private Pessoa pessoa;
     
-    public Email(String email, int ativo) {
+    public Email(String email, int ativo, Pessoa pessoa) {
         this.email = email;
         this.ativo = ativo;
+        this.pessoa = pessoa;
     }
     
     public Email() {
         this.email = "";
         this.ativo = 1;
+        this.pessoa = new Pessoa();
     }
 
     public Long getEmailid() {
