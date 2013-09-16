@@ -17,6 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import org.hibernate.annotations.IndexColumn;
 
 /**
  *
@@ -32,22 +33,27 @@ public class Professor extends Pessoa implements Serializable {
     @Column(name="nivel", length=10)
     private int nivel;
     
+    @Column(name="ativo", length=1)
+    private int ativo;
+    
     @ManyToMany(cascade= CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name="ProfessorDisciplina",  
+    @JoinTable(name="professordisciplina",  
     joinColumns= @JoinColumn(name="professorid"), 
     inverseJoinColumns=@JoinColumn(name="disciplinaid")
     )
     List<Disciplina> disciplinas;
 
-    public Professor(String titulacao, int nivel, List<Disciplina> disciplinas) {
+    public Professor(String titulacao, int nivel, int ativo, List<Disciplina> disciplinas) {
         this.titulacao = titulacao;
         this.nivel = nivel;
         this.disciplinas = disciplinas;
+        this.ativo = ativo;
     }
     
     public Professor() {
         this.titulacao = "";
         this.nivel = 0;
+        this.ativo = 1;
         this.disciplinas = new LinkedList<>();
     }
         
@@ -66,7 +72,7 @@ public class Professor extends Pessoa implements Serializable {
     public void setNivel(int nivel) {
         this.nivel = nivel;
     }
-
+       
     public List<Disciplina> getDisciplinas() {
         return disciplinas;
     }
@@ -93,7 +99,6 @@ public class Professor extends Pessoa implements Serializable {
         int hash = 7;
         hash = 73 * hash + Objects.hashCode(this.titulacao);
         hash = 73 * hash + this.nivel;
-        hash = 73 * hash + Objects.hashCode(this.disciplinas);
         return hash;
     }
 
@@ -110,9 +115,6 @@ public class Professor extends Pessoa implements Serializable {
             return false;
         }
         if (this.nivel != other.nivel) {
-            return false;
-        }
-        if (!Objects.equals(this.disciplinas, other.disciplinas)) {
             return false;
         }
         return true;

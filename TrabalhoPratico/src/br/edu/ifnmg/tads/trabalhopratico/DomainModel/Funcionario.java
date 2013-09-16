@@ -23,15 +23,20 @@ public class Funcionario extends Pessoa implements Serializable {
     
     @Column(name="siape", length=255)
     private String siape;
+    
+    @Column(name="ativo", length=1)
+    private int ativo;
 
-    public Funcionario(String cargo, String siape) {
+    public Funcionario(String cargo, String siape, int ativo) {
         this.cargo = cargo;
         this.siape = siape;
+        this.ativo = ativo;
     }
     
     public Funcionario() {
         this.cargo = "";
         this.siape = "";
+        this.ativo = 1;
     }
     
     public String getSiape() {

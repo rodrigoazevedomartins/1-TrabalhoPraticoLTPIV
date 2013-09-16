@@ -24,46 +24,40 @@ import javax.persistence.Table;
  * @author Rodrigo
  */
 @Entity
-@Table(name="cursos")
-public class Curso implements Serializable {
+@Table(name="tiposrecurso")
+public class TipoRecurso implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long cursoid;
+    private Long tiporecursoid;
     
     @Column(name="nome", length=255)
     private String nome;
     
-    @Column(name="duracao", length=2)
-    private int duracao;
+    @Column(name="descricao", length=255)
+    private String descricao;
     
-    @Column(name="ativo", length=1)
+    @Column(name="ativo", length = 1)
     private int ativo;
     
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name="cursoid")
-    private List<Disciplina> disciplinas;
-
-    public Curso(String nome, int duracao, int ativo, List<Disciplina> disciplinas) {
+    public TipoRecurso(String nome, String descricao, int ativo) {
         this.nome = nome;
-        this.duracao = duracao;
+        this.descricao = descricao;
         this.ativo = ativo;
-        this.disciplinas = disciplinas;
-    }
-
-    public Curso() {
-        this.nome = "";
-        this.duracao = 0;
-        this.ativo = 1;
-        this.disciplinas = new LinkedList<>();
     }
     
-    public Long getCursoid() {
-        return cursoid;
+    public TipoRecurso() {
+        this.nome = "";
+        this.descricao = "";
+        this.ativo = 1;
     }
 
-    public void setCursoid(Long cursoid) {
-        this.cursoid = cursoid;
+    public Long getTiporecursoid() {
+        return tiporecursoid;
+    }
+
+    public void setTiporecursoid(Long tiporecursoid) {
+        this.tiporecursoid = tiporecursoid;
     }
 
     public String getNome() {
@@ -74,12 +68,12 @@ public class Curso implements Serializable {
         this.nome = nome;
     }
 
-    public int getDuracao() {
-        return duracao;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setDuracao(int duracao) {
-        this.duracao = duracao;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public int getAtivo() {
@@ -90,31 +84,11 @@ public class Curso implements Serializable {
         this.ativo = ativo;
     }
     
-    public List<Disciplina> getDisciplinas() {
-        return disciplinas;
-    }
-
-    public void setDisciplinas(List<Disciplina> disciplinas) {
-        this.disciplinas = disciplinas;
-    }
-    
-    public void addDisciplina(Disciplina disciplina){
-        if(!disciplinas.contains(disciplina)){
-            disciplinas.add(disciplina);
-        }
-    }
-    
-    public void removeDisciplina(Disciplina disciplina){
-        if(disciplinas.contains(disciplina)){
-            disciplinas.remove(disciplina);
-        }
-    }
-
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 97 * hash + Objects.hashCode(this.nome);
-        hash = 97 * hash + this.duracao;
+        int hash = 7;
+        hash = 53 * hash + Objects.hashCode(this.nome);
+        hash = 53 * hash + Objects.hashCode(this.descricao);
         return hash;
     }
 
@@ -126,11 +100,11 @@ public class Curso implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Curso other = (Curso) obj;
+        final TipoRecurso other = (TipoRecurso) obj;
         if (!Objects.equals(this.nome, other.nome)) {
             return false;
         }
-        if (this.duracao != other.duracao) {
+        if (!Objects.equals(this.descricao, other.descricao)) {
             return false;
         }
         return true;
@@ -140,7 +114,7 @@ public class Curso implements Serializable {
     public String toString() {
         return this.nome;
     }
-    
+  
     
     
     

@@ -1,4 +1,6 @@
 
+import br.edu.ifnmg.tads.trabalhopratico.DomainModel.Curso;
+import br.edu.ifnmg.tads.trabalhopratico.DomainModel.Disciplina;
 import br.edu.ifnmg.tads.trabalhopratico.DomainModel.Email;
 import br.edu.ifnmg.tads.trabalhopratico.DomainModel.Endereco;
 import br.edu.ifnmg.tads.trabalhopratico.DomainModel.Funcionario;
@@ -42,7 +44,7 @@ public class frmPrincipal {
             
             transacao.begin();
             
-            Funcionario func = new Funcionario();
+            /*Funcionario func = new Funcionario();
             
             Professor pf = new Professor();
             
@@ -85,11 +87,41 @@ public class frmPrincipal {
             manager.persist(pf);
             
             
+            
+            Curso curso = new Curso();
+            
+            curso.setNome("TADS");
+            
+            Professor pf = new Professor();
+            Disciplina disciplina = new Disciplina();
+            
+            pf.setNome("Rodrigo Azevedo Martins");
+            pf.setNivel(1111111);
+            
+            disciplina.setNome("LTPIII");
+            disciplina.setCurso(curso);
+            pf.addDisciplina(disciplina);
+            disciplina = new Disciplina();
+            disciplina.setNome("LTPII");
+            disciplina.setCurso(curso);
+            pf.addDisciplina(disciplina);
+            
+            manager.persist(pf);
+            
+            for (Disciplina d : pf.getDisciplinas()){
+                manager.persist(d);
+            }
+            
+            
+            
+            */
             transacao.commit();
         } catch(Exception ex){
             transacao.rollback();
         }
         
+        
+        /*
         try{
             
             Query consulta = manager.createQuery("select p from Pessoa p");
@@ -103,7 +135,7 @@ public class frmPrincipal {
         } finally {
             manager.close();
         }
-             
+        */   
         
     }
 }

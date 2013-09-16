@@ -7,6 +7,16 @@
     <class>br.edu.ifnmg.tads.trabalhopratico.DomainModel.Disciplina</class>
     <class>br.edu.ifnmg.tads.trabalhopratico.DomainModel.Funcionario</class>
     <class>br.edu.ifnmg.tads.trabalhopratico.DomainModel.Curso</class>
+    <class>br.edu.ifnmg.tads.trabalhopratico.DomainModel.Usuario</class>
+    <class>br.edu.ifnmg.tads.trabalhopratico.DomainModel.Secao</class>
+    <class>br.edu.ifnmg.tads.trabalhopratico.DomainModel.TipoRecurso</class>
+    <class>br.edu.ifnmg.tads.trabalhopratico.DomainModel.Recurso</class>
+    <class>br.edu.ifnmg.tads.trabalhopratico.DomainModel.MedidaTempo</class>
+    <class>br.edu.ifnmg.tads.trabalhopratico.DomainModel.StatusRecurso</class>
+    <class>br.edu.ifnmg.tads.trabalhopratico.DomainModel.ProfessorDisciplina</class>
+    <class>br.edu.ifnmg.tads.trabalhopratico.DomainModel.EmprestimoReserva</class>
+    <class>br.edu.ifnmg.tads.trabalhopratico.DomainModel.Operacao</class>
+    <class>br.edu.ifnmg.tads.trabalhopratico.DomainModel.EmprestimoReservaRecurso</class>
     <properties>
       <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
       <property name="hibernate.connection.username" value="root"/>
