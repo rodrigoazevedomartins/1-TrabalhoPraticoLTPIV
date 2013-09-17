@@ -16,13 +16,13 @@ import javax.persistence.Persistence;
  */
 public abstract class DAOGenerico<T> {
     
-    private EntityManager manager;
+    protected EntityManager manager;
     private EntityManagerFactory factory;
     private Class tipo;
     
     public DAOGenerico(Class t){
         
-        factory = Persistence.createEntityManagerFactory("trabalhopraticoPU");
+        factory = Persistence.createEntityManagerFactory("TrabalhoPraticoPU");
         manager = factory.createEntityManager();
         tipo = t;
         

@@ -1,4 +1,5 @@
 
+import br.edu.ifnmg.tads.trabalhopratico.DataAccess.FuncionarioDAO;
 import br.edu.ifnmg.tads.trabalhopratico.DomainModel.Curso;
 import br.edu.ifnmg.tads.trabalhopratico.DomainModel.Disciplina;
 import br.edu.ifnmg.tads.trabalhopratico.DomainModel.Email;
@@ -120,22 +121,25 @@ public class frmPrincipal {
             transacao.rollback();
         }
         
-        
-        /*
-        try{
+      
+          
             
-            Query consulta = manager.createQuery("select p from Pessoa p");
             
-            List<Pessoa> pessoas = consulta.getResultList();
+            FuncionarioDAO fDAO = new FuncionarioDAO();
+            Funcionario f = new Funcionario();
+            f.setNome("Rodrigo");
             
-            for (Pessoa p : pessoas){
-                System.out.println(p.getNome());
+            //fDAO.Salvar(f);
+            
+            
+            List<Funcionario> funcs = fDAO.buscarFuncionario(f);
+            
+            for(Funcionario func : funcs){
+                System.out.println(func);
+            
             }
             
-        } finally {
-            manager.close();
-        }
-        */   
+            
         
     }
 }
