@@ -22,7 +22,7 @@ public class CursoDAO extends DAOGenerico<Curso>{
     
     public List<Curso> buscarCurso(Curso filtro){
         
-        String sql = "select c from Curso c, Disciplina d where c.ativo = 1";
+        String sql = "select c from Curso c where c.ativo = 1";
         
         HashMap<String, Object> parametros = new HashMap<String, Object>();
         
@@ -48,7 +48,7 @@ public class CursoDAO extends DAOGenerico<Curso>{
     
     public List<Curso> listarTodos(){
         
-        Query consulta = manager.createQuery("select c from Curso c, Disciplina d where c.ativo = 1");
+        Query consulta = manager.createQuery("select c from Curso c where c.ativo = 1");
         return consulta.getResultList();
         
     }
