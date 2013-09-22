@@ -4,6 +4,7 @@
  */
 package br.edu.ifnmg.tads.trabalhopratico.DataAccess;
 
+import br.edu.ifnmg.tads.trabalhopratico.DomainModel.Email;
 import br.edu.ifnmg.tads.trabalhopratico.DomainModel.Professor;
 import java.util.HashMap;
 import java.util.List;
@@ -16,13 +17,12 @@ import javax.persistence.Query;
 public class ProfessorDAO extends DAOGenerico<Professor>{
     
     public ProfessorDAO(){
-        super(Professor.class);
+        super(Professor.class);        
     }
     
     public List<Professor> buscarProfessor(Professor filtro){
               
-        String sql = "select p from Professor p, Email e, Telefone t, Endereco en where p.ativo = 1 and (t.ativo = 1 and t.pessoa.pessoaid = p.pessoaid) and "
-                + "(en.ativo = 1 and en.pessoa.pessoaid = p.pessoaid) and (e.ativo = 1 and e.pessoa.pessoaid = p.pessoaid)";
+        String sql = "select p from Professor p where p.ativo = 1";
         
         HashMap<String, Object> parametros = new HashMap<String, Object>();
                 
@@ -64,8 +64,7 @@ public class ProfessorDAO extends DAOGenerico<Professor>{
     
     public List<Professor> listarTodos(){
         
-        Query consulta = manager.createQuery("select p from Professor p, Email e, Telefone t, Endereco en where p.ativo = 1 and (t.ativo = 1 and t.pessoa.pessoaid = p.pessoaid) and "
-                + "(en.ativo = 1 and en.pessoa.pessoaid = p.pessoaid) and (e.ativo = 1 and e.pessoa.pessoaid = p.pessoaid)");
+        Query consulta = manager.createQuery("select p from Professor p where p.ativo = 1");
         return consulta.getResultList();
         
     }

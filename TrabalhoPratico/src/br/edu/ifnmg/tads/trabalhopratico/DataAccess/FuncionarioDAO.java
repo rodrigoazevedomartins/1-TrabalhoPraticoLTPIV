@@ -21,8 +21,7 @@ public class FuncionarioDAO extends DAOGenerico<Funcionario>{
     
     public List<Funcionario> buscarFuncionario(Funcionario filtro){
         
-        String sql = "select f from Funcionario f, Email e, Telefone t, Endereco en where f.ativo = 1 and (t.ativo = 1 and t.pessoa.pessoaid = f.pessoaid) and "
-                + "(en.ativo = 1 and en.pessoa.pessoaid = f.pessoaid) and (e.ativo = 1 and e.pessoa.pessoaid = f.pessoaid)";
+        String sql = "select f from Funcionario f where f.ativo = 1";
         
         HashMap<String, Object> parametros = new HashMap<String, Object>();
              
@@ -64,8 +63,7 @@ public class FuncionarioDAO extends DAOGenerico<Funcionario>{
     
     public List<Funcionario> listarTodos(){
         
-        Query consulta = manager.createQuery("select f from Funcionario f, Email e, Telefone t, Endereco en where f.ativo = 1 and (t.ativo = 1 and t.pessoa.pessoaid = f.pessoaid) and "
-                + "(en.ativo = 1 and en.pessoa.pessoaid = f.pessoaid) and (e.ativo = 1 and e.pessoa.pessoaid = f.pessoaid)");
+        Query consulta = manager.createQuery("select f from Funcionario f where f.ativo = 1");
         
         return consulta.getResultList();
         
