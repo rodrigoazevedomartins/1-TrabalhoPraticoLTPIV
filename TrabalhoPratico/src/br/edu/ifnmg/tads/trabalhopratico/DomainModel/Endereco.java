@@ -166,7 +166,14 @@ public class Endereco implements Serializable {
     public void setAtivo(int ativo) {
         this.ativo = ativo;
     }
-
+    
+    public void setPessoa(Pessoa pessoa){
+        this.pessoa = pessoa;
+    }
+    
+    public Pessoa getPessoa(){
+        return this.pessoa;
+    }
     @Override
     public int hashCode() {
         int hash = 7;
