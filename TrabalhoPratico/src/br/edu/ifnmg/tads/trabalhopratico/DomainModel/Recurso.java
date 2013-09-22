@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  *
@@ -51,11 +52,10 @@ public class Recurso implements Serializable {
     @JoinColumn(name="tiporecursoid")
     private TipoRecurso tiporecurso;
     
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name="medidatempoid")
-    private MedidaTempo medidatempo;
+    @Column(name="medidatempo", length = 1)
+    private int medidatempo;
 
-    public Recurso(String nome, String descricao, int capacidade, int num_patrimonio, int tempo, int ativo, TipoRecurso tiporecurso, MedidaTempo medidatempo) {
+    public Recurso(String nome, String descricao, int capacidade, int num_patrimonio, int tempo, int ativo, TipoRecurso tiporecurso, int medidatempo) {
         this.nome = nome;
         this.descricao = descricao;
         this.capacidade = capacidade;
@@ -74,7 +74,7 @@ public class Recurso implements Serializable {
         this.tempo = 0;
         this.ativo = 1;
         this.tiporecurso = new TipoRecurso();
-        this.medidatempo = new MedidaTempo();
+        this.medidatempo = 0;
     }
 
     public Long getRecursoid() {
@@ -140,13 +140,16 @@ public class Recurso implements Serializable {
     public void setTiporecurso(TipoRecurso tiporecurso) {
         this.tiporecurso = tiporecurso;
     }
-
-    public MedidaTempo getMedidatempo() {
-        return medidatempo;
+    
+    @Transient
+    public void setMedidaTempo(int medida){
+        this.medidatempo = medida;
+        
     }
-
-    public void setMedidatempo(MedidaTempo medidatempo) {
-        this.medidatempo = medidatempo;
+    
+    @Transient
+    public String getMedidaTempo(){
+        return MedidaTempo.consultaMedidaTempo(medidatempo);
     }
 
     @Override

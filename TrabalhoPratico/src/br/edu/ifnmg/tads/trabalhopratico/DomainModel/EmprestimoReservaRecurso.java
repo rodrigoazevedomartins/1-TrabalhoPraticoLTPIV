@@ -19,6 +19,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 /**
  *
@@ -48,14 +49,13 @@ public class EmprestimoReservaRecurso implements Serializable {
     @Column(name = "datadevolucao")
     private Date datadevolucao;         // devolucao do recurso 
     
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "statusrecursoid")
-    private StatusRecurso statusrecurso;
+    @Column(name="statusrecurso", length = 1)
+    private int statusrecurso;
     
     @Column(name = "ativo")
     private int ativo;
 
-    public EmprestimoReservaRecurso(EmprestimoReserva emprestimoreserva, Recurso recurso, Date dataprevdevolucao, Date datadevolucao, StatusRecurso statusrecurso, int ativo) {
+    public EmprestimoReservaRecurso(EmprestimoReserva emprestimoreserva, Recurso recurso, Date dataprevdevolucao, Date datadevolucao, int statusrecurso, int ativo) {
         this.emprestimoreserva = emprestimoreserva;
         this.recurso = recurso;
         this.dataprevdevolucao = dataprevdevolucao;
@@ -69,7 +69,7 @@ public class EmprestimoReservaRecurso implements Serializable {
         this.recurso = new Recurso();
         this.dataprevdevolucao = new Date();
         this.datadevolucao = new Date();
-        this.statusrecurso = new StatusRecurso();
+        this.statusrecurso = 0;
         this.ativo = 1;
     }
 
@@ -112,12 +112,14 @@ public class EmprestimoReservaRecurso implements Serializable {
     public void setDatadevolucao(Date datadevolucao) {
         this.datadevolucao = datadevolucao;
     }
-
-    public StatusRecurso getStatusrecurso() {
-        return statusrecurso;
+    
+    @Transient
+    public String getStatusrecurso() {
+        return StatusRecurso.consultaStatusRecurso(statusrecurso);
     }
-
-    public void setStatusrecurso(StatusRecurso statusrecurso) {
+    
+    @Transient
+    public void setStatusrecurso(int statusrecurso) {
         this.statusrecurso = statusrecurso;
     }
 

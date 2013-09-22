@@ -23,7 +23,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import org.hibernate.annotations.IndexColumn;
+import javax.persistence.Transient;
 
 /**
  *
@@ -49,9 +49,8 @@ public class EmprestimoReserva implements Serializable {
     @Column(name="dataemprestimo")
     private Date dataemprestimo;        // realizacao do emprestimo 
     
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name="operacaoid")
-    private Operacao operacao;          // emprestimo ou reserva
+    @Column(name = "operacao", length = 1)
+    private int operacao;          // emprestimo ou reserva
     
     @Column(name = "ativo", length = 1)
     private int ativo;
@@ -71,7 +70,7 @@ public class EmprestimoReserva implements Serializable {
     )
     private List<Recurso> recursos;
 
-    public EmprestimoReserva(Date dataprevemprestimo, Date datareserva, Date dataemprestimo, Operacao operacao, int ativo, Secao secao, Pessoa pessoa, List<Recurso> recursos) {
+    public EmprestimoReserva(Date dataprevemprestimo, Date datareserva, Date dataemprestimo, int operacao, int ativo, Secao secao, Pessoa pessoa, List<Recurso> recursos) {
         this.dataprevemprestimo = dataprevemprestimo;
         this.datareserva = datareserva;
         this.dataemprestimo = dataemprestimo;
@@ -86,7 +85,7 @@ public class EmprestimoReserva implements Serializable {
         this.dataprevemprestimo = new Date();
         this.datareserva = new Date();
         this.dataemprestimo = new Date();
-        this.operacao = new Operacao();
+        this.operacao = 0;
         this.ativo = 1;
         this.secao = new Secao();
         this.pessoa = new Pessoa();
@@ -126,12 +125,14 @@ public class EmprestimoReserva implements Serializable {
     public void setDataemprestimo(Date dataemprestimo) {
         this.dataemprestimo = dataemprestimo;
     }
-
-    public Operacao getOperacao() {
-        return operacao;
+    
+    @Transient
+    public String getOperacao() {
+        return Operacao.consultaOperacao(operacao);
     }
-
-    public void setOperacao(Operacao operacao) {
+    
+    @Transient
+    public void setOperacao(int operacao) {
         this.operacao = operacao;
     }
 
