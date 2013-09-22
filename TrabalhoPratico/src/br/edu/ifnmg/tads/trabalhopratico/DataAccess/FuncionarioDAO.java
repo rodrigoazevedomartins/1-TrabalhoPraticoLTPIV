@@ -5,6 +5,7 @@
 package br.edu.ifnmg.tads.trabalhopratico.DataAccess;
 
 import br.edu.ifnmg.tads.trabalhopratico.DomainModel.Funcionario;
+import java.util.HashMap;
 import java.util.List;
 import javax.persistence.Query;
 
@@ -20,28 +21,42 @@ public class FuncionarioDAO extends DAOGenerico<Funcionario>{
     
     public List<Funcionario> buscarFuncionario(Funcionario filtro){
         
-        Query consulta = null;
+        String sql = "select f from Funcionario f, Email e, Telefone t, Endereco en where f.ativo = 1 and (t.ativo = 1 and t.pessoa.pessoaid = f.pessoaid) and "
+                + "(en.ativo = 1 and en.pessoa.pessoaid = f.pessoaid) and (e.ativo = 1 and e.pessoa.pessoaid = f.pessoaid)";
+        
+        HashMap<String, Object> parametros = new HashMap<String, Object>();
              
         if(filtro.getNome().length() > 0){
-            consulta = manager
-                    .createQuery("select f from Funcionario f where nome = :p0");
-            consulta.setParameter("p0", filtro.getNome());
+            sql = sql + " and f.nome = :f0";
+            parametros.put("f0", filtro.getNome());
         }
         
         if(filtro.getCpf() > 0){
-            consulta = manager.createQuery("select f from Funcionario f where cpf = :p1");
-            consulta.setParameter("p1", filtro.getCpf());
+            sql = sql + " and f.cpf = :f1";
+            parametros.put("f1", filtro.getCpf());
         }
         
         if(filtro.getRg().length() > 0){
-            consulta = manager.createQuery("select f from Funcionario f where rg = :p3");
-            consulta.setParameter("p3", filtro.getRg());
+            sql = sql + " and f.rg = :f2";
+            parametros.put("f2", filtro.getRg());
+        }
+        
+        if(filtro.getSiape().length() > 0){
+            sql = sql + " and f.siape = :f3";
+            parametros.put("f3", filtro.getSiape());
         }
         
         if(filtro.getCargo().length() > 0){
-            consulta = manager.createQuery("select f from Funcionario f where cargo = :p2");
-            consulta.setParameter("p2", filtro.getCargo());
+            sql = sql + " and f.cargo = :f4";
+            parametros.put("f4", filtro.getCargo());
         }
+        
+        Query consulta = manager.createQuery(sql);
+        
+        for (String par : parametros.keySet()) {
+            consulta.setParameter(par, parametros.get(par));
+        }
+        
         
         return consulta.getResultList();
         
@@ -49,7 +64,8 @@ public class FuncionarioDAO extends DAOGenerico<Funcionario>{
     
     public List<Funcionario> listarTodos(){
         
-        Query consulta = manager.createQuery("select f from Funcionario f");
+        Query consulta = manager.createQuery("select f from Funcionario f, Email e, Telefone t, Endereco en where f.ativo = 1 and (t.ativo = 1 and t.pessoa.pessoaid = f.pessoaid) and "
+                + "(en.ativo = 1 and en.pessoa.pessoaid = f.pessoaid) and (e.ativo = 1 and e.pessoa.pessoaid = f.pessoaid)");
         
         return consulta.getResultList();
         

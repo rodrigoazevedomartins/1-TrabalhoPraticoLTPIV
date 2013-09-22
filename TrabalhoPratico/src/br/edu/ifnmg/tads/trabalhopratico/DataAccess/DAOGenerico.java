@@ -4,7 +4,6 @@
  */
 package br.edu.ifnmg.tads.trabalhopratico.DataAccess;
 
-import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -48,10 +47,7 @@ public abstract class DAOGenerico<T> {
             return false;
         
         }
-        
-        
-        
-        
+            
     }
     
     public T Abrir(long id){
@@ -92,13 +88,7 @@ public abstract class DAOGenerico<T> {
             
             return false;
         }
-        
-        
+           
     }
-    
-    
-    
-    
-    
     
 }
