@@ -4,7 +4,6 @@
  */
 package br.edu.ifnmg.tads.trabalhopratico.DataAccess;
 
-import br.edu.ifnmg.tads.trabalhopratico.DomainModel.Email;
 import br.edu.ifnmg.tads.trabalhopratico.DomainModel.Professor;
 import java.util.HashMap;
 import java.util.List;
