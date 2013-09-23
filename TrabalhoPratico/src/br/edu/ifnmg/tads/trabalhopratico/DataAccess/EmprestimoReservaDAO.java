@@ -6,6 +6,7 @@ package br.edu.ifnmg.tads.trabalhopratico.DataAccess;
 
 import br.edu.ifnmg.tads.trabalhopratico.DomainModel.EmprestimoReserva;
 import java.util.HashMap;
+import java.util.List;
 import javax.persistence.Query;
 
 /**
