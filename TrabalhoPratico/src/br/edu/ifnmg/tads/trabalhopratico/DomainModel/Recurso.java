@@ -148,8 +148,8 @@ public class Recurso implements Serializable {
     }
     
     @Transient
-    public String getMedidaTempo(){
-        return MedidaTempo.consultaMedidaTempo(medidatempo);
+    public int getMedidaTempo(){
+        return medidatempo;
     }
 
     @Override
