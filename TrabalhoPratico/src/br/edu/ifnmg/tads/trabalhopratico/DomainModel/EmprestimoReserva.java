@@ -127,8 +127,8 @@ public class EmprestimoReserva implements Serializable {
     }
     
     @Transient
-    public String getOperacao() {
-        return Operacao.consultaOperacao(operacao);
+    public int getOperacao() {
+        return operacao;
     }
     
     @Transient

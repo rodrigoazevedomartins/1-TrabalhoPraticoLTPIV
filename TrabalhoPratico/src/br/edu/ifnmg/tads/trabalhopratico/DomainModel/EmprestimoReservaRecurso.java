@@ -114,8 +114,8 @@ public class EmprestimoReservaRecurso implements Serializable {
     }
     
     @Transient
-    public String getStatusrecurso() {
-        return StatusRecurso.consultaStatusRecurso(statusrecurso);
+    public int getStatusrecurso() {
+        return statusrecurso;
     }
     
     @Transient
